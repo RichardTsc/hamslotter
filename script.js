@@ -20,4 +20,4 @@ document.addEventListener('DOMContentLoaded', function() {
         const returnCode = await response.text();
         alert(`Return Code: ${returnCode}`);
     });
-}
+});
