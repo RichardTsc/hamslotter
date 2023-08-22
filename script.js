@@ -1,7 +1,7 @@
 // Initialize flatpickr for date-time picker
 flatpickr("#dateTimePicker", {
     enableTime: true,
-    minDate: "tomorrow",
+    minDate: "today",
     defaultHour: 6,
     defaultMinute: 30,
     minuteIncrement: 15,
