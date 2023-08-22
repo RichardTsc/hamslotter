@@ -1,21 +1,23 @@
-// Initialize flatpickr for date-time picker
-flatpickr("#dateTimePicker", {
-    enableTime: true,
-    minDate: "today",
-    defaultHour: 6,
-    defaultMinute: 30,
-    minuteIncrement: 15,
-});
-
-document.getElementById('inputForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    
-    const response = await fetch('YOUR_POST_URL', {
-        method: 'POST',
-        body: formData
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize flatpickr for date-time picker
+    flatpickr("#dateTimePicker", {
+        enableTime: true,
+        minDate: "today",
+        defaultHour: 6,
+        defaultMinute: 30,
+        minuteIncrement: 15,
     });
 
-    const returnCode = await response.text();
-    alert(`Return Code: ${returnCode}`);
-});
+    document.getElementById('inputForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        
+        const response = await fetch('YOUR_POST_URL', {
+            method: 'POST',
+            body: formData
+        });
+
+        const returnCode = await response.text();
+        alert(`Return Code: ${returnCode}`);
+    });
+}
