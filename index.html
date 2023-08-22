@@ -6,18 +6,35 @@
     <title>Simple Website</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
 </head>
+<!-- ... (head and styles) ... -->
 <body>
     <div class="container mt-5">
-        <h1>Simple Website</h1>
+        <h1>Flight Booking Form</h1>
         <form id="inputForm">
             <div class="mb-3">
-                <label for="input1" class="form-label">Input 1</label>
-                <input type="text" class="form-control" id="input1" name="input1">
+                <label for="dateTimePicker" class="form-label">Date and Time</label>
+                <input type="text" class="form-control" id="dateTimePicker" name="dateTimePicker">
             </div>
-            <!-- Repeat similar code for input2 to input7 -->
+            <div class="mb-3">
+                <label for="flightNumber" class="form-label">Flight Number</label>
+                <input type="text" class="form-control" id="flightNumber" name="flightNumber">
+            </div>
+            <div class="mb-3">
+                <label for="passenger1" class="form-label">Passenger 1 Name</label>
+                <input type="text" class="form-control" id="passenger1" name="passenger1">
+            </div>
+            <div class="mb-3">
+                <label for="passenger2" class="form-label">Passenger 2 Name (optional)</label>
+                <input type="text" class="form-control" id="passenger2" name="passenger2">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email">
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="script.js"></script>
 </body>
 </html>
