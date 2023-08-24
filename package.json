@@ -1,0 +1,16 @@
+{
+  "name": "hamslotter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "start": "netlify dev"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RichardTsc/hamslotter.git"
+  }
+}

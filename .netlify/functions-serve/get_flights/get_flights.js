@@ -1,0 +1,1 @@
+module.exports = require('./src/netlify/functions/get_flights/get_flights.js')

@@ -8,30 +8,65 @@ document.addEventListener('DOMContentLoaded', function() {
         defaultHour: 6,
         defaultMinute: 30,
         minuteIncrement: 15,
+        onChange: function(selectedDates, dateStr, instance) {
+            //console.log(reformatDate(dateStr));       // This is a string representation of the selected date(s)
+            
+            fetchFlightDataAndPopulateDatalist(reformatDate(dateStr));
+            // Your custom logic when a date is selected
+        }
     });
 
-    fetchFlightDataAndPopulateDatalist();
+    
 
     document.getElementById('inputForm').addEventListener('submit', async function(event) {
         event.preventDefault();
-        const formData = new FormData(event.target);
-        
-        const response = await fetch('YOUR_POST_URL', {
-            method: 'POST',
-            body: formData
-        });
+        // Gather data from the form
+        const date = reformatDate(document.getElementById('dateTimePicker').value);
+        const flightNumber = document.getElementById('flightNumber').value;
+        const passenger1 = document.getElementById('passenger1').value;
+        const passenger2 = document.getElementById('passenger2').value;
+        const email = document.getElementById('email').value;
+    
+        // Construct the POST data
+        const postData = {
+            slot: `${date.replace(/\-/g, '')}0500`,
+            namen: [passenger1],
+            email: email,
+            flightno: flightNumber,
+            slotStart: `${date.split('.').reverse().join('-')}T05:00:00+02:00`,
+            slotEnd: `${date.split('.').reverse().join('-')}T21:00:00+02:00`,
+            lang: 'DE'
+        };
 
-        const returnCode = await response.text();
-        alert(`Return Code: ${returnCode}`);
+        console.log(postData);
+    
+        // Add the second passenger if provided
+        if (passenger2) {
+            postData.namen.push(passenger2);
+        }
+    
+        // Send the POST request
+        const response = await fetch('https://magnificent-mochi-cb1f04.netlify.app/.netlify/functions/book_slot', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData),
+        });
+    
+        const responseData = await response.json();
+        console.log(responseData);
+    
+        // Handle the response as needed, e.g., show a success message, redirect, etc.
     });
 });
-
+    
 
 // Function to fetch flight data and populate the datalist
-async function fetchFlightDataAndPopulateDatalist() {
+async function fetchFlightDataAndPopulateDatalist(date) {
     try {
         // Make the GET request
-        const response = await fetch('https://cors-anywhere.herokuapp.com/https://slotandfly.cloud.ham.aero/api/flugdaten/2023-08-23');
+        const response = await fetch('https://magnificent-mochi-cb1f04.netlify.app/.netlify/functions/get_flights?date='+date);
         const data = await response.json();
 
         // Function to parse flight numbers
@@ -58,6 +93,7 @@ async function fetchFlightDataAndPopulateDatalist() {
 
         // Add flight numbers to the datalist
         const datalist = document.getElementById('flightNumbersList');
+        datalist.innerHTML="";
         flightNumbers.forEach(flightNumber => {
             const option = document.createElement('option');
             option.value = flightNumber;
@@ -68,3 +104,16 @@ async function fetchFlightDataAndPopulateDatalist() {
         console.error('Failed to fetch flight data:', error);
     }
 }
+
+
+
+function reformatDate(inputDate) {
+    // Split the date by "."
+    const parts = inputDate.split(".");
+  
+    // Re-arrange the date parts and join with "-"
+    const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+  
+    return formattedDate;
+  }
+  
