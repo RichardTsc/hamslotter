@@ -12,15 +12,17 @@
 <!-- ... (head and styles) ... -->
 <body>
     <div class="container mt-5">
-        <h1>HAM Slot Buchen</h1>
+        <h1>HAM Slot buchen</h1>
         <form id="inputForm">
             <div class="mb-3">
-                <label for="dateTimePicker" class="form-label">Slot</label>
+                <label for="dateTimePicker" class="form-label">Flugtag (Slot wird für 05:00-21:00 ausgestellt)</label>
                 <input type="text" class="form-control" id="dateTimePicker" name="dateTimePicker">
             </div>
             <div class="mb-3">
-                <label for="flightNumber" class="form-label">Flug Nummer (z.B. LH 1234)</label>
-                <input type="text" class="form-control" id="flightNumber" name="flightNumber">
+                <label for="flightNumber" class="form-label">Flugnummer</label>
+                <input type="text" class="form-control" id="flightNumber" name="flightNumber" list="flightNumbersList">
+                <datalist id="flightNumbersList">
+                </datalist>
             </div>
             <div class="mb-3">
                 <label for="passenger1" class="form-label">Fluggast 1 (Name, Vorname)</label>
